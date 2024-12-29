@@ -1,0 +1,93 @@
+﻿@model CreateEmployeeDTO
+
+@inject IDepartmentService _departmentService
+@{
+    var departmentsVar = new SelectList(await _departmentService.GetAllDepartmentsAsync(), 
+                                        nameof(DepartmentToReturnDTO.Id), nameof(DepartmentToReturnDTO.Name));
+}
+
+<div class="row justify-content-center align-items-center flex-column">
+    <h1 class="col-6">@ViewData["Title"] Employee</h1>
+
+    <br />
+    <br />
+
+    <form asp-action="@ViewData["Title"]" class="col-6" enctype="multipart/form-data">
+
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Age"></label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Salary"></label>
+            <input asp-for="Salary" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-check mb-3">
+            <input asp-for="IsActive" class="form-check-input mb-3">
+            <label asp-for="IsActive" class="form-check-label"> </label>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="HiringDate"></label>
+            <input type="date" asp-for="HiringDate" class="form-control" />
+        </div>
+
+        <div class="form-group mt-3">
+            <label asp-for="DepartmentId" class="control-label"></label>
+            <select asp-for="DepartmentId" asp-items="@departmentsVar" class="form-control">
+                <option value="@null">Choose ... </option>
+            </select>
+        </div>
+
+        <div class="form-group ">
+            <label class="control-label mb-2" asp-for="Gender"></label>
+            <br />
+            @foreach (Gender genderOption in Enum.GetValues(typeof(Gender)))
+            {
+                <label class="radio-inline">
+                    <input type="radio" asp-for="Gender" value="@genderOption" />
+                    @genderOption
+                </label>
+            }
+        </div>
+
+        <div class="form-group mt-3">
+            <label asp-for="EmployeeType" class="control-label"></label>
+            <select asp-for="EmployeeType" asp-items="@Html.GetEnumSelectList<EmployeeType>()" class="form-control">
+                <option value="">Select Employee Type</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Image"></label>
+            <input asp-for="Image" class="form-control" />
+        </div>
+
+        <div class="mt-4">
+            <input type="submit" value="@ViewData["Title"]" class="btn btn-primary" /> |
+            <a asp-controller="Employee" asp-action="Index" class="btn btn-light">Back to List</a>
+        </div>
+    </form>
+
+</div>
+

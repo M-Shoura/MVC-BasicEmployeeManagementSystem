@@ -1,0 +1,11 @@
+﻿@model CreateEmployeeDTO
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<partial name="Partials/CreateEditEmployeePartial" />
+
+@section ClientSideValidation {
+    <partial name="_ValidationScriptsPartial" />
+}
